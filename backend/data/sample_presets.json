@@ -1,0 +1,90 @@
+[
+  {
+    "id": "preset_legit_engineer",
+    "name": "Senior Full-Stack Engineer (Legitimate Corp)",
+    "category": "Legitimate Tech",
+    "expected_type": "legitimate",
+    "data": {
+      "title": "Senior Full-Stack Software Engineer",
+      "company_name": "CloudSphere Technologies Inc.",
+      "company_profile": "CloudSphere Technologies is an enterprise cloud observability platform founded in 2017. Headquartered in San Francisco with remote hubs in Austin and London, we serve over 400 global enterprises with automated telemetry pipelines and distributed systems monitoring.",
+      "description": "We are looking for a Senior Full-Stack Engineer to join our Core Platform Engineering team. In this role, you will design, develop, and scale high-throughput microservices using TypeScript, Node.js, and React. You will partner with product managers and distributed infrastructure engineers to deliver real-time analytics dashboards handling millions of events per second.",
+      "employment_type": "Full-time",
+      "required_experience": "Mid-Senior level",
+      "required_education": "Bachelor's Degree",
+      "salary_range": "$145,000 - $175,000",
+      "company_website": "https://cloudspheretech.example.com",
+      "location": "San Francisco, CA (Hybrid / Remote)",
+      "industry": "Computer Software",
+      "function": "Engineering",
+      "required_skills": "TypeScript, React, Node.js, PostgreSQL, Docker, AWS, Distributed Systems, CI/CD",
+      "benefits": "Competitive salary, 401(k) matching up to 5%, comprehensive health, dental, and vision insurance, unlimited PTO, and home office wellness stipend."
+    }
+  },
+  {
+    "id": "preset_fraud_data_entry",
+    "name": "Data Entry & Payment Clerk (Scam / Fake Check)",
+    "category": "Fraudulent Scam",
+    "expected_type": "fraudulent",
+    "data": {
+      "title": "Urgent: Remote Data Entry Clerk & Payment Assistant",
+      "company_name": "Apex Global Financial Logistics",
+      "company_profile": "",
+      "description": "URGENT HIRE! We are looking for an immediate Data Entry and Payment Processing Assistant to work from home. No previous experience needed! You will be processing clerical spreadsheets and handling transaction records. Earn up to $4,500 weekly! Work 2 to 3 hours a day on your own flexible schedule. Immediate start guaranteed.",
+      "employment_type": "Part-time",
+      "required_experience": "Entry level",
+      "required_education": "High School or equivalent",
+      "salary_range": "$3,500 - $4,500 / week",
+      "company_website": "",
+      "location": "Remote, Anywhere in US",
+      "industry": "Financial Services",
+      "function": "Administrative",
+      "required_skills": "Basic typing, internet access, data entry, check handling",
+      "benefits": "A company cashier's check will be mailed to you immediately upon hire to purchase home office equipment, computer, and software from our accredited vendor. Send your full name, phone number, and resume to apex_recruiting_officer@gmail.com or message our hiring coordinator on Telegram @ApexHiringManager."
+    }
+  },
+  {
+    "id": "preset_legit_support",
+    "name": "Customer Support Specialist (Legitimate SaaS)",
+    "category": "Legitimate Support",
+    "expected_type": "legitimate",
+    "data": {
+      "title": "Customer Support Specialist - Tier 2",
+      "company_name": "Elevate Commerce Solutions",
+      "company_profile": "Elevate Commerce powers multi-channel checkout solutions for over 15,000 independent retailers. Established in 2014, we are a profitable 250-person SaaS team dedicated to fast, reliable customer satisfaction.",
+      "description": "Our Support Team is expanding! We are seeking an empathetic, detail-oriented Customer Support Specialist to troubleshoot merchant inquiries via Zendesk tickets and live chat. You will reproduce software defects, liaise with QA engineers, and maintain public knowledge base documentation.",
+      "employment_type": "Full-time",
+      "required_experience": "Associate",
+      "required_education": "Associate Degree",
+      "salary_range": "$52,000 - $65,000",
+      "company_website": "https://elevatecommerce.example.com",
+      "location": "Chicago, IL (Remote)",
+      "industry": "Information Technology and Services",
+      "function": "Customer Service",
+      "required_skills": "Zendesk, Intercom, Technical Troubleshooting, API Basics, Strong Written English, SLA Management",
+      "benefits": "Medical, dental, vision insurance coverage, 15 days paid annual leave, 10 paid sick days, 401(k) retirement plan, annual learning & conference budget."
+    }
+  },
+  {
+    "id": "preset_fraud_crypto_assistant",
+    "name": "Crypto Logistics Coordinator (Scam / Task Fraud)",
+    "category": "Fraudulent Scam",
+    "expected_type": "fraudulent",
+    "data": {
+      "title": "Remote Bitcoin Logistics & Cashier Assistant",
+      "company_name": "Horizon Digital Assets LLC",
+      "company_profile": "Top crypto trading agency worldwide looking for partners.",
+      "description": "Immediate opening for Remote Bitcoin Logistics Assistant! You will receive company funds into your bank account and execute wire transfers or Bitcoin ATM deposits to international trade partners. Earn $800 daily plus 5% commission on all completed transfers. No interview required. You must act fast and start today.",
+      "employment_type": "Contract",
+      "required_experience": "Not Applicable",
+      "required_education": "Unspecified",
+      "salary_range": "$800 daily + commission",
+      "company_website": "",
+      "location": "Worldwide / Remote",
+      "industry": "Accounting",
+      "function": "Finance",
+      "required_skills": "Crypto wallet, bank account, whatsapp, telegram",
+      "benefits": "Daily payouts via wire transfer or cryptocurrency. Contact our recruiter instantly on WhatsApp +1-555-019-2834 or message our hiring bot on Telegram. Do not apply via email."
+    }
+  }
+]

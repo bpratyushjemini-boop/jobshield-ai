@@ -1,0 +1,35 @@
+# Virtual environments
+.venv/
+backend/venv/
+venv/
+ENV/
+
+# Python cache & artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+*.pytest_cache/
+.coverage
+htmlcov/
+*.log
+
+# Node & Next.js
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/.turbo/
+.npm
+npm-debug.log*
+
+# Large dataset files (downloadable via python backend/data/download_dataset.py)
+backend/data/*.csv
+
+# Operating System files
+.DS_Store
+Thumbs.db
+*.swp
+
+# Environment variables
+.env
+.env.local
+.env.*.local

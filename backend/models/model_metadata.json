@@ -1,0 +1,328 @@
+{
+  "model_name": "JobShield AI Detector",
+  "version": "1.0.0",
+  "architecture": "scikit-learn Pipeline [TfidfVectorizer(1-2 N-grams, 12,000 features, Sublinear TF) + LogisticRegression(class_weight='balanced')]",
+  "trained_at": "2026-10-23T12:18:14.821150+00:00",
+  "training_duration_seconds": 7.28,
+  "scikit_learn_version": "1.6.1",
+  "dataset": {
+    "name": "Employment Scam Aegean Dataset (EMSCAD)",
+    "file": "fake_job_postings.csv",
+    "total_records": 17880,
+    "legitimate_count": 17014,
+    "fraudulent_count": 866,
+    "imbalance_ratio": "1:19",
+    "train_samples": 14304,
+    "test_samples": 3576,
+    "test_split_ratio": 0.2,
+    "random_seed": 42,
+    "stratified": true
+  },
+  "metrics": {
+    "accuracy": 0.9852,
+    "roc_auc": 0.9916,
+    "pr_auc": 0.9427,
+    "fraud_precision": 0.8061,
+    "fraud_recall": 0.9133,
+    "fraud_f1": 0.8564,
+    "macro_f1": 0.9243,
+    "confusion_matrix": {
+      "true_negatives": 3365,
+      "false_positives": 38,
+      "false_negatives": 15,
+      "true_positives": 158
+    },
+    "classification_report": {
+      "Legitimate (0)": {
+        "precision": 0.9955621301775148,
+        "recall": 0.9888333823097267,
+        "f1-score": 0.9921863482234999,
+        "support": 3403.0
+      },
+      "Fraudulent (1)": {
+        "precision": 0.8061224489795918,
+        "recall": 0.9132947976878613,
+        "f1-score": 0.8563685636856369,
+        "support": 173.0
+      },
+      "accuracy": 0.985178970917226,
+      "macro avg": {
+        "precision": 0.9008422895785533,
+        "recall": 0.951064089998794,
+        "f1-score": 0.9242774559545683,
+        "support": 3576.0
+      },
+      "weighted avg": {
+        "precision": 0.9863974028712394,
+        "recall": 0.985178970917226,
+        "f1-score": 0.985615745112468,
+        "support": 3576.0
+      }
+    }
+  },
+  "hyperparameters": {
+    "vectorizer": {
+      "max_features": 12000,
+      "ngram_range": [
+        1,
+        2
+      ],
+      "min_df": 3,
+      "max_df": 0.9,
+      "sublinear_tf": true,
+      "stop_words": "english"
+    },
+    "classifier": {
+      "model": "LogisticRegression",
+      "class_weight": "balanced",
+      "C": 1.5,
+      "solver": "liblinear",
+      "max_iter": 1000,
+      "random_state": 42
+    }
+  },
+  "top_fraud_terms": [
+    {
+      "term": "link",
+      "weight": 4.3353
+    },
+    {
+      "term": "data entry",
+      "weight": 4.1397
+    },
+    {
+      "term": "description apply",
+      "weight": 4.0788
+    },
+    {
+      "term": "earn",
+      "weight": 3.8319
+    },
+    {
+      "term": "hospital",
+      "weight": 3.6007
+    },
+    {
+      "term": "contact_phone",
+      "weight": 3.4692
+    },
+    {
+      "term": "money",
+      "weight": 3.4483
+    },
+    {
+      "term": "aptitude staffing",
+      "weight": 3.4254
+    },
+    {
+      "term": "administrative",
+      "weight": 3.2521
+    },
+    {
+      "term": "contact_email",
+      "weight": 3.0113
+    },
+    {
+      "term": "time description",
+      "weight": 3.0026
+    },
+    {
+      "term": "aptitude",
+      "weight": 2.9513
+    },
+    {
+      "term": "care employment",
+      "weight": 2.775
+    },
+    {
+      "term": "000",
+      "weight": 2.7663
+    },
+    {
+      "term": "industry accounting",
+      "weight": 2.7053
+    },
+    {
+      "term": "accounting function",
+      "weight": 2.6867
+    },
+    {
+      "term": "oil",
+      "weight": 2.6338
+    },
+    {
+      "term": "accounting",
+      "weight": 2.6021
+    },
+    {
+      "term": "work home",
+      "weight": 2.5323
+    },
+    {
+      "term": "offshore",
+      "weight": 2.4613
+    },
+    {
+      "term": "requirements high",
+      "weight": 2.4322
+    },
+    {
+      "term": "entry",
+      "weight": 2.4066
+    },
+    {
+      "term": "clerk",
+      "weight": 2.38
+    },
+    {
+      "term": "high school",
+      "weight": 2.352
+    },
+    {
+      "term": "oil energy",
+      "weight": 2.35
+    },
+    {
+      "term": "rn",
+      "weight": 2.3417
+    },
+    {
+      "term": "wages",
+      "weight": 2.3198
+    },
+    {
+      "term": "cash",
+      "weight": 2.3178
+    },
+    {
+      "term": "line",
+      "weight": 2.3141
+    },
+    {
+      "term": "tx houston",
+      "weight": 2.3009
+    }
+  ],
+  "top_legit_terms": [
+    {
+      "term": "profile",
+      "weight": -4.6178
+    },
+    {
+      "term": "company profile",
+      "weight": -4.5906
+    },
+    {
+      "term": "companies",
+      "weight": -3.1222
+    },
+    {
+      "term": "team",
+      "weight": -2.88
+    },
+    {
+      "term": "software",
+      "weight": -2.8598
+    },
+    {
+      "term": "recruitment",
+      "weight": -2.8392
+    },
+    {
+      "term": "growing",
+      "weight": -2.7038
+    },
+    {
+      "term": "english",
+      "weight": -2.6318
+    },
+    {
+      "term": "client",
+      "weight": -2.4906
+    },
+    {
+      "term": "clients",
+      "weight": -2.4877
+    },
+    {
+      "term": "web",
+      "weight": -2.4681
+    },
+    {
+      "term": "company",
+      "weight": -2.4626
+    },
+    {
+      "term": "digital",
+      "weight": -2.4559
+    },
+    {
+      "term": "fun",
+      "weight": -2.3188
+    },
+    {
+      "term": "based",
+      "weight": -2.274
+    },
+    {
+      "term": "associate",
+      "weight": -2.2097
+    },
+    {
+      "term": "education bachelor",
+      "weight": -2.1509
+    },
+    {
+      "term": "love",
+      "weight": -2.1345
+    },
+    {
+      "term": "agency",
+      "weight": -2.0418
+    },
+    {
+      "term": "degree description",
+      "weight": -1.9912
+    },
+    {
+      "term": "founded",
+      "weight": -1.9618
+    },
+    {
+      "term": "search",
+      "weight": -1.9454
+    },
+    {
+      "term": "exceptional",
+      "weight": -1.9206
+    },
+    {
+      "term": "days",
+      "weight": -1.8828
+    },
+    {
+      "term": "creative",
+      "weight": -1.8647
+    },
+    {
+      "term": "know",
+      "weight": -1.7898
+    },
+    {
+      "term": "startup",
+      "weight": -1.7705
+    },
+    {
+      "term": "gr",
+      "weight": -1.7675
+    },
+    {
+      "term": "university",
+      "weight": -1.7667
+    },
+    {
+      "term": "experience associate",
+      "weight": -1.7589
+    }
+  ]
+}

@@ -1,0 +1,174 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  /* =========================================================================
+     JOBSHIELD AI — Brand Palette Tokens (Exact Reference Hex Codes)
+     ========================================================================= */
+  --royal-blue: #112250;
+  --quicksand: #E0C58F;
+  --swan-wing: #F5F0E9;
+  --shell-stone: #D9CBC2;
+  --sapphire: #3C507D;
+
+  /* =========================================================================
+     Light Theme Specification:
+     - Background: Swan Wing (#F5F0E9)
+     - Headings & Primary Controls: Royal Blue (#112250)
+     - Clean Content Surfaces: White (#FFFFFF) & Swan Wing (#F5F0E9)
+     - Secondary Panels & Divisions: Shell Stone (#D9CBC2)
+     - Highlights & Selected Details: Quicksand (#E0C58F)
+     - Secondary Actions & Data Vis: Sapphire (#3C507D)
+     ========================================================================= */
+  --background: #F5F0E9;
+  --foreground: #112250;
+  --card-bg: #FFFFFF;
+  --card-elevated: #F9F6F0;
+  --card-border: #D9CBC2;
+  --card-hover-border: #3C507D;
+  --muted-text: #3C507D;
+  --subtle-bg: #ECE4D9;
+
+  /* Primary Action Buttons: Royal Blue with Swan Wing text */
+  --primary-action: #112250;
+  --primary-action-hover: #1D326D;
+  --primary-action-text: #F5F0E9;
+
+  /* Secondary Actions: Sapphire */
+  --secondary-action: #3C507D;
+  --secondary-action-hover: #2F3E61;
+  --secondary-action-text: #F5F0E9;
+
+  /* Highlight Accents: Quicksand */
+  --accent-highlight: #E0C58F;
+  --accent-highlight-text: #112250;
+
+  /* Functional Status: Fraud warnings (Red) and genuine caution (Amber) */
+  --danger-text: #991B1B;
+  --danger-bg: #FEF2F2;
+  --danger-border: #FCA5A5;
+
+  --warning-text: #92400E;
+  --warning-bg: #FFFBEB;
+  --warning-border: #FDE68A;
+
+  /* Legitimate Job Status: Restrained Royal Blue / Shell Stone alignment */
+  --success-text: #112250;
+  --success-bg: #ECE4D9;
+  --success-border: #D9CBC2;
+
+  --legit-text: #112250;
+  --legit-bg: #ECE4D9;
+  --legit-border: #D9CBC2;
+}
+
+.dark {
+  /* =========================================================================
+     Dark Theme Specification:
+     - Main Background: Royal Blue (#112250)
+     - Deeper Navy Surfaces for Cards & Elevated: (#0B1736, #0E1D45)
+     - Primary Text: Swan Wing (#F5F0E9)
+     - Muted Text, Borders & Secondary Details: Shell Stone (#D9CBC2)
+     - Restrained Highlights: Quicksand (#E0C58F)
+     - Subtle Tonal Variation & Data Vis: Sapphire (#3C507D)
+     ========================================================================= */
+  --background: #112250;
+  --foreground: #F5F0E9;
+  --card-bg: #0B1736;
+  --card-elevated: #0E1D45;
+  --card-border: rgba(217, 203, 194, 0.22);
+  --card-hover-border: #3C507D;
+  --muted-text: #D9CBC2;
+  --subtle-bg: #08132F;
+
+  /* Primary Action Buttons: Swan Wing with Royal Blue text, hover Quicksand */
+  --primary-action: #F5F0E9;
+  --primary-action-hover: #E0C58F;
+  --primary-action-text: #112250;
+
+  /* Secondary Actions: Sapphire */
+  --secondary-action: #3C507D;
+  --secondary-action-hover: #4D649B;
+  --secondary-action-text: #F5F0E9;
+
+  /* Highlight Accents: Quicksand */
+  --accent-highlight: #E0C58F;
+  --accent-highlight-text: #112250;
+
+  /* Functional Status: Dark Mode Accessible Red & Amber */
+  --danger-text: #F87171;
+  --danger-bg: rgba(153, 27, 27, 0.25);
+  --danger-border: #7F1D1D;
+
+  --warning-text: #E0C58F;
+  --warning-bg: rgba(224, 197, 143, 0.15);
+  --warning-border: rgba(224, 197, 143, 0.40);
+
+  /* Legitimate Job Status: Swan Wing / Sapphire / Shell Stone */
+  --success-text: #F5F0E9;
+  --success-bg: rgba(60, 80, 125, 0.25);
+  --success-border: rgba(60, 80, 125, 0.50);
+
+  --legit-text: #F5F0E9;
+  --legit-bg: rgba(60, 80, 125, 0.25);
+  --legit-border: rgba(60, 80, 125, 0.50);
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Subtle, dignified scrollbars using palette colors */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--card-border);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted-text);
+}
+
+/* Selection styling aligned with Quicksand and Sapphire */
+::selection {
+  background-color: #E0C58F;
+  color: #112250;
+}
+
+.dark ::selection {
+  background-color: #3C507D;
+  color: #F5F0E9;
+}
+
+/* Accessibility: Honor reduced transparency preference */
+@media (prefers-reduced-transparency: reduce) {
+  [data-liquid-glass="material"],
+  .liquid-glass-surface {
+    background: var(--card-bg) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+}
+
+/* Accessibility: Honor reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  [data-liquid-glass] *,
+  .liquid-glass-surface {
+    transition: none !important;
+    animation: none !important;
+  }
+}
