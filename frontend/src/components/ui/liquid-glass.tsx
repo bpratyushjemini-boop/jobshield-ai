@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { Component, ErrorInfo } from 'react';
 import { Glass, type GlassOptics } from '@aberhamm/liquid-glass-react';
 import { useTheme } from '@/lib/theme';
 import { cn } from '@/lib/utils';
@@ -16,10 +16,47 @@ export interface LiquidGlassSurfaceProps extends React.HTMLAttributes<HTMLDivEle
   interactive?: boolean;
 }
 
+interface GlassErrorBoundaryProps {
+  fallbackStyle: React.CSSProperties;
+  className?: string;
+  children: React.ReactNode;
+}
+
+interface GlassErrorBoundaryState {
+  hasError: boolean;
+}
+
+class GlassErrorBoundary extends Component<GlassErrorBoundaryProps, GlassErrorBoundaryState> {
+  constructor(props: GlassErrorBoundaryProps) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError(): GlassErrorBoundaryState {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+    console.warn('LiquidGlass WebGL fallback activated:', error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div style={this.props.fallbackStyle} className={this.props.className}>
+          {this.props.children}
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+
 /**
- * Enterprise Liquid Glass material surface.
+ * Selective Liquid Glass material surface.
  * Adapts between Light (Swan Wing / Shell Stone) and Dark (Royal Blue / Sapphire) themes.
  * Uses translucent versions of the palette colors, keeps blur restrained, and preserves crisp legibility.
+ * Gracefully falls back to pure CSS if WebGL is unavailable or fails.
  */
 export const LiquidGlassSurface: React.FC<LiquidGlassSurfaceProps> = ({
   children,
@@ -37,12 +74,12 @@ export const LiquidGlassSurface: React.FC<LiquidGlassSurfaceProps> = ({
   // Conservative optical parameters tailored for cybersecurity UI restraint
   const defaultOptics: Partial<GlassOptics> = {
     frost: variant === 'nav' ? 3 : 2,
-    strength: variant === 'control' ? 0.08 : 0.06,
+    strength: variant === 'control' ? 0.08 : 0.05,
     dispersion: 0.00, // Zero dispersion to eliminate rainbow or multicolor refraction
-    curvature: 0.03,  // Flat surface so typography stays crisp
-    sheen: 0.2,       // Subtle directional edge highlight
-    specular: 0.25,
-    saturate: 1.05,
+    curvature: 0.02,  // Flat surface so typography stays crisp
+    sheen: 0.18,      // Subtle directional edge highlight
+    specular: 0.22,
+    saturate: 1.02,
     ...optics,
   };
 
@@ -51,28 +88,28 @@ export const LiquidGlassSurface: React.FC<LiquidGlassSurfaceProps> = ({
     if (isDark) {
       switch (variant) {
         case 'nav':
-          return 'rgba(17, 34, 80, 0.88)'; // Translucent Royal Blue #112250
+          return 'rgba(17, 34, 80, 0.90)'; // Translucent Royal Blue #112250
         case 'control':
           return 'rgba(11, 23, 54, 0.85)'; // Deeper Navy #0B1736
         case 'pill':
-          return 'rgba(14, 29, 69, 0.80)'; // Subtle Navy
+          return 'rgba(14, 29, 69, 0.82)'; // Subtle Navy
         case 'card':
-          return 'rgba(11, 23, 54, 0.88)';
+          return 'rgba(11, 23, 54, 0.90)';
         default:
-          return 'rgba(17, 34, 80, 0.80)';
+          return 'rgba(17, 34, 80, 0.85)';
       }
     } else {
       switch (variant) {
         case 'nav':
-          return 'rgba(245, 240, 233, 0.88)'; // Translucent Swan Wing #F5F0E9
+          return 'rgba(245, 240, 233, 0.90)'; // Translucent Swan Wing #F5F0E9
         case 'control':
-          return 'rgba(255, 255, 255, 0.88)'; // Pure white glass
+          return 'rgba(255, 255, 255, 0.92)'; // Pure white glass
         case 'pill':
-          return 'rgba(245, 240, 233, 0.85)'; // Translucent Swan Wing
+          return 'rgba(245, 240, 233, 0.88)'; // Translucent Swan Wing
         case 'card':
-          return 'rgba(255, 255, 255, 0.90)';
+          return 'rgba(255, 255, 255, 0.92)';
         default:
-          return 'rgba(245, 240, 233, 0.80)';
+          return 'rgba(245, 240, 233, 0.85)';
       }
     }
   };
@@ -85,29 +122,31 @@ export const LiquidGlassSurface: React.FC<LiquidGlassSurfaceProps> = ({
   };
 
   const computedStyle: React.CSSProperties = {
-    display: 'flex',
-    alignItems: 'center',
+    display: variant === 'card' ? undefined : 'flex',
+    alignItems: variant === 'card' ? undefined : 'center',
     background: getBackgroundColor(),
     borderColor: getBorderColor(),
     borderRadius: radius !== undefined ? radius : undefined,
-    backdropFilter: 'blur(12px) saturate(115%)',
-    WebkitBackdropFilter: 'blur(12px) saturate(115%)',
+    backdropFilter: 'blur(10px)',
+    WebkitBackdropFilter: 'blur(10px)',
     transition: 'background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease',
     ...style,
   };
 
   return (
-    <Glass
-      style={computedStyle}
-      optics={defaultOptics}
-      className={cn(
-        'relative border transition-all',
-        interactive && 'hover:border-[#3C507D]/50 dark:hover:border-[#E0C58F]/50',
-        className
-      )}
-      {...props}
-    >
-      {children}
-    </Glass>
+    <GlassErrorBoundary fallbackStyle={computedStyle} className={className}>
+      <Glass
+        style={computedStyle}
+        optics={defaultOptics}
+        className={cn(
+          'relative border transition-all',
+          interactive && 'hover:border-[#3C507D]/60 dark:hover:border-[#E0C58F]/60',
+          className
+        )}
+        {...props}
+      >
+        {children}
+      </Glass>
+    </GlassErrorBoundary>
   );
 };

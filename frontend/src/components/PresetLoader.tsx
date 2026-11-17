@@ -1,11 +1,10 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { ShieldCheck, ShieldAlert, Sparkles } from 'lucide-react';
+import { ShieldCheck, ShieldAlert, FolderOpen } from 'lucide-react';
 import { JobPreset, JobPostingFormData } from '@/lib/types';
 import { getPresets } from '@/lib/api';
 import { Card } from '@/components/ui/card';
-import { LiquidGlassSurface } from '@/components/ui/liquid-glass';
 
 interface PresetLoaderProps {
   onSelectPreset: (presetData: Partial<JobPostingFormData>) => void;
@@ -35,15 +34,10 @@ export default function PresetLoader({ onSelectPreset, currentTitle }: PresetLoa
   }
 
   return (
-    <LiquidGlassSurface
-      variant="card"
-      radius={12}
-      optics={{ frost: 2.5, strength: 0.06, dispersion: 0.00, sheen: 0.2 }}
-      className="p-4 border border-[var(--card-border)]/80 shadow-xs block space-y-3 w-full"
-    >
+    <Card className="p-5 border border-[var(--card-border)] bg-[var(--card-bg)] shadow-xs space-y-3.5 w-full">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <Sparkles className="w-3.5 h-3.5 text-[var(--foreground)]" />
+          <FolderOpen className="w-3.5 h-3.5 text-[var(--foreground)]" />
           <span className="text-xs font-semibold text-[var(--foreground)] tracking-tight">
             Verified Test Presets
           </span>
@@ -97,6 +91,6 @@ export default function PresetLoader({ onSelectPreset, currentTitle }: PresetLoa
           );
         })}
       </div>
-    </LiquidGlassSurface>
+    </Card>
   );
 }

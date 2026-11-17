@@ -25,7 +25,7 @@ export default function ThreatMatrix() {
       icon: AlertOctagon,
       severity: "HIGH",
       description:
-        "Unrealistic compensation ($45–$80/hr) for trivial data processing, parcel re-boxing, or crypto transaction forwarding that turns applicants into unwitting accomplices.",
+        "Unrealistic compensation ($45 to $80/hr) for trivial data processing, parcel re-boxing, or crypto transaction forwarding that turns applicants into unwitting accomplices.",
       signals: ["Unrealistic entry pay", "No experience required", "Payment processing tasks"],
     },
     {
@@ -39,9 +39,9 @@ export default function ThreatMatrix() {
   ];
 
   return (
-    <section className="py-14 sm:py-18 border-b border-[var(--card-border)] transition-colors duration-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
-        <div className="max-w-2xl mx-auto text-center space-y-2.5">
+    <section className="py-12 sm:py-16 border-b border-[var(--card-border)] transition-colors duration-200">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+        <div className="max-w-2xl mx-auto text-center space-y-2">
           <span className="text-[11px] font-mono font-medium uppercase tracking-wider text-[var(--muted-text)]">
             Threat Signatures
           </span>

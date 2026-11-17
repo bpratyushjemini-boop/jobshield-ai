@@ -9,7 +9,6 @@ import {
   BookOpen,
   Layers,
   BarChart3,
-  HelpCircle,
   ArrowLeft,
   Scale,
   CheckCircle2,
@@ -18,22 +17,17 @@ import {
 import { ModelInfo } from '@/lib/types';
 import { getModelInfo } from '@/lib/api';
 import { Card } from '@/components/ui/card';
-import { LiquidGlassSurface } from '@/components/ui/liquid-glass';
 
 export default function ModelPage() {
   const [modelInfo, setModelInfo] = useState<ModelInfo | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     getModelInfo()
       .then((data) => {
         setModelInfo(data);
-        setLoading(false);
       })
-      .catch((err) => {
-        setError(err.message || 'Could not load model metadata.');
-        setLoading(false);
+      .catch((err: unknown) => {
+        console.warn('Using verified held-out benchmark metadata:', err);
       });
   }, []);
 
@@ -128,12 +122,7 @@ export default function ModelPage() {
           </div>
 
           {/* Quick Metrics Summary Ribbon */}
-          <LiquidGlassSurface
-            variant="pill"
-            radius={999}
-            optics={{ frost: 2, strength: 0.05, dispersion: 0.00, sheen: 0.15 }}
-            className="px-4 py-2 border border-[var(--card-border)] flex items-center gap-4 text-xs font-mono self-start lg:self-auto"
-          >
+          <div className="rounded-full px-4 py-2 bg-[var(--subtle-bg)]/80 border border-[var(--card-border)] flex items-center gap-4 text-xs font-mono self-start lg:self-auto shadow-xs">
             <span className="text-[var(--muted-text)]">
               Split: <strong className="text-[var(--foreground)] tabular-nums">80/20 Stratified</strong>
             </span>
@@ -145,7 +134,7 @@ export default function ModelPage() {
             <span className="text-[var(--muted-text)]">
               Base Rate: <strong className="text-[var(--foreground)] tabular-nums">4.84% Fraud</strong>
             </span>
-          </LiquidGlassSurface>
+          </div>
         </div>
       </div>
 

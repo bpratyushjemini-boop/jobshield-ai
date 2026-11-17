@@ -33,7 +33,7 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(
-    title="JOBSHIELD AI — Fake Job Posting Detection API",
+    title="JOBSHIELD AI: Fake Job Posting Detection API",
     description=(
         "Production-ready machine learning API for detecting fraudulent job postings, "
         "trained on the Employment Scam Aegean Dataset (EMSCAD) with TF-IDF, "

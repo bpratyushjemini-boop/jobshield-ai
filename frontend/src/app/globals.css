@@ -1,10 +1,15 @@
 @import "tailwindcss";
 
-@custom-variant dark (&:where(.dark, .dark *));
+@variant dark (&:where(.dark, .dark *));
 
 :root {
   /* =========================================================================
-     JOBSHIELD AI — Brand Palette Tokens (Exact Reference Hex Codes)
+     JOBSHIELD AI: Brand Palette Tokens (Exact Reference Hex Codes)
+     Royal Blue:   #112250
+     Quicksand:    #E0C58F
+     Swan Wing:    #F5F0E9
+     Shell Stone:  #D9CBC2
+     Sapphire:     #3C507D
      ========================================================================= */
   --royal-blue: #112250;
   --quicksand: #E0C58F;
@@ -44,16 +49,16 @@
   --accent-highlight: #E0C58F;
   --accent-highlight-text: #112250;
 
-  /* Functional Status: Fraud warnings (Red) and genuine caution (Amber) */
+  /* Functional Status: High-Contrast Red (Fraud) and Bronze/Quicksand (Warning) */
   --danger-text: #991B1B;
   --danger-bg: #FEF2F2;
   --danger-border: #FCA5A5;
 
-  --warning-text: #92400E;
-  --warning-bg: #FFFBEB;
-  --warning-border: #FDE68A;
+  --warning-text: #7A5B20;
+  --warning-bg: rgba(224, 197, 143, 0.18);
+  --warning-border: rgba(224, 197, 143, 0.55);
 
-  /* Legitimate Job Status: Restrained Royal Blue / Shell Stone alignment */
+  /* Legitimate Job Status: Restrained Royal Blue / Shell Stone alignment (Zero Green) */
   --success-text: #112250;
   --success-bg: #ECE4D9;
   --success-border: #D9CBC2;
@@ -61,6 +66,15 @@
   --legit-text: #112250;
   --legit-bg: #ECE4D9;
   --legit-border: #D9CBC2;
+
+  /* Depth & Elevation */
+  --shadow-xs: 0 1px 2px rgba(17, 34, 80, 0.04);
+  --shadow-sm: 0 1px 3px rgba(17, 34, 80, 0.06), 0 1px 2px rgba(17, 34, 80, 0.04);
+  --shadow-md: 0 4px 6px -1px rgba(17, 34, 80, 0.07), 0 2px 4px -2px rgba(17, 34, 80, 0.04);
+  --shadow-lg: 0 10px 15px -3px rgba(17, 34, 80, 0.08), 0 4px 6px -4px rgba(17, 34, 80, 0.04);
+
+  /* Focus System */
+  --focus-ring: 0 0 0 2px var(--background), 0 0 0 4px rgba(17, 34, 80, 0.35);
 }
 
 .dark {
@@ -71,7 +85,7 @@
      - Primary Text: Swan Wing (#F5F0E9)
      - Muted Text, Borders & Secondary Details: Shell Stone (#D9CBC2)
      - Restrained Highlights: Quicksand (#E0C58F)
-     - Subtle Tonal Variation & Data Vis: Sapphire (#3C507D)
+     - Supporting Accents: Sapphire (#3C507D)
      ========================================================================= */
   --background: #112250;
   --foreground: #F5F0E9;
@@ -96,7 +110,7 @@
   --accent-highlight: #E0C58F;
   --accent-highlight-text: #112250;
 
-  /* Functional Status: Dark Mode Accessible Red & Amber */
+  /* Functional Status: Dark Mode Accessible Red & Quicksand Amber */
   --danger-text: #F87171;
   --danger-bg: rgba(153, 27, 27, 0.25);
   --danger-border: #7F1D1D;
@@ -105,7 +119,7 @@
   --warning-bg: rgba(224, 197, 143, 0.15);
   --warning-border: rgba(224, 197, 143, 0.40);
 
-  /* Legitimate Job Status: Swan Wing / Sapphire / Shell Stone */
+  /* Legitimate Job Status: Swan Wing / Sapphire (Zero Green) */
   --success-text: #F5F0E9;
   --success-bg: rgba(60, 80, 125, 0.25);
   --success-border: rgba(60, 80, 125, 0.50);
@@ -113,12 +127,21 @@
   --legit-text: #F5F0E9;
   --legit-bg: rgba(60, 80, 125, 0.25);
   --legit-border: rgba(60, 80, 125, 0.50);
+
+  /* Depth & Elevation (Dark) */
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.2);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.25), 0 1px 2px rgba(0, 0, 0, 0.15);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.25), 0 2px 4px -2px rgba(0, 0, 0, 0.15);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -4px rgba(0, 0, 0, 0.15);
+
+  /* Focus System (Dark) */
+  --focus-ring: 0 0 0 2px var(--background), 0 0 0 4px rgba(224, 197, 143, 0.4);
 }
 
 body {
   background-color: var(--background);
   color: var(--foreground);
-  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   min-height: 100vh;
   overflow-x: hidden;
   text-rendering: optimizeLegibility;
@@ -154,6 +177,28 @@ body {
   color: #F5F0E9;
 }
 
+/* Accessible focus ring utility */
+.focus-ring:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+/* Active navigation indicator */
+.nav-link-active {
+  position: relative;
+  font-weight: 600;
+}
+.nav-link-active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 20%;
+  right: 20%;
+  height: 2px;
+  background: var(--foreground);
+  border-radius: 1px;
+}
+
 /* Accessibility: Honor reduced transparency preference */
 @media (prefers-reduced-transparency: reduce) {
   [data-liquid-glass="material"],
@@ -166,9 +211,12 @@ body {
 
 /* Accessibility: Honor reduced motion preference */
 @media (prefers-reduced-motion: reduce) {
-  [data-liquid-glass] *,
-  .liquid-glass-surface {
-    transition: none !important;
-    animation: none !important;
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

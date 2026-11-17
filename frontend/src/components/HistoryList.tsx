@@ -21,19 +21,17 @@ import VerificationChecklist from './VerificationChecklist';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { LiquidGlassSurface } from '@/components/ui/liquid-glass';
 
 export default function HistoryList() {
   const [history, setHistory] = useState<SavedAnalysis[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedItem, setSelectedItem] = useState<SavedAnalysis | null>(null);
 
-  const loadData = () => {
-    setHistory(getSavedAnalyses());
-  };
-
   useEffect(() => {
-    loadData();
+    const handle = requestAnimationFrame(() => {
+      setHistory(getSavedAnalyses());
+    });
+    return () => cancelAnimationFrame(handle);
   }, []);
 
   const handleClear = () => {
@@ -89,13 +87,8 @@ export default function HistoryList() {
 
   return (
     <div className="space-y-6">
-      {/* Search & Actions Bar with Liquid Glass */}
-      <LiquidGlassSurface
-        variant="card"
-        radius={12}
-        optics={{ frost: 2, strength: 0.05, dispersion: 0.00, sheen: 0.15 }}
-        className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 border border-[var(--card-border)]/80 shadow-xs"
-      >
+      {/* Search & Actions Bar */}
+      <Card className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 border border-[var(--card-border)] bg-[var(--card-bg)] shadow-xs">
         <div className="relative flex-1 max-w-md">
           <Search className="w-4 h-4 text-[var(--muted-text)] absolute left-3 top-1/2 -translate-y-1/2" />
           <Input
@@ -131,7 +124,7 @@ export default function HistoryList() {
             <span>Clear history</span>
           </Button>
         </div>
-      </LiquidGlassSurface>
+      </Card>
 
       {/* Desktop Table View */}
       <div className="hidden md:block rounded-xl border border-[var(--card-border)] bg-[var(--card-bg)] overflow-hidden shadow-xs">
@@ -198,7 +191,7 @@ export default function HistoryList() {
                       </span>
                     </td>
                     <td className="py-3 px-4 font-medium">
-                      <span className={isFraud ? 'text-[var(--danger-text)]' : 'text-[var(--success-text)]'}>
+                      <span className={isFraud ? 'text-[var(--danger-text)]' : 'text-[#3C507D] dark:text-[#E0C58F]'}>
                         {fraudPercent}%
                       </span>
                     </td>

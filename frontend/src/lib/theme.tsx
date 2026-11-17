@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState, useSyncExternalStore } from 'react';
 
 type Theme = 'light' | 'dark';
 
@@ -20,28 +20,47 @@ const ThemeContext = createContext<ThemeContextType>({
 
 const THEME_STORAGE_KEY = 'jobshield-theme';
 
+function applyThemeClass(targetTheme: Theme) {
+  if (typeof document === 'undefined') return;
+  const root = document.documentElement;
+  if (targetTheme === 'dark') {
+    root.classList.add('dark');
+  } else {
+    root.classList.remove('dark');
+  }
+}
+
+function subscribeMounted() {
+  return () => {};
+}
+
+function getClientMounted() {
+  return true;
+}
+
+function getServerMounted() {
+  return false;
+}
+
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>('light');
-  const [isMounted, setIsMounted] = useState(false);
+  const isMounted = useSyncExternalStore(subscribeMounted, getClientMounted, getServerMounted);
+
+  const [theme, setThemeState] = useState<Theme>(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const stored = localStorage.getItem(THEME_STORAGE_KEY) as Theme | null;
+        if (stored === 'light' || stored === 'dark') {
+          return stored;
+        }
+      } catch {
+        // localStorage unavailable
+      }
+    }
+    // Initial theme for first-time visitors is Light (Swan Wing)
+    return 'light';
+  });
 
   useEffect(() => {
-    setIsMounted(true);
-
-    try {
-      const stored = localStorage.getItem(THEME_STORAGE_KEY) as Theme | null;
-      if (stored === 'light' || stored === 'dark') {
-        setThemeState(stored);
-        applyThemeClass(stored);
-      } else {
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        const initialTheme: Theme = prefersDark ? 'dark' : 'light';
-        setThemeState(initialTheme);
-        applyThemeClass(initialTheme);
-      }
-    } catch {
-      // localStorage may fail in restricted iframes / privacy modes
-    }
-
     // Listen for OS theme changes if user has no stored preference
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     const handleChange = (e: MediaQueryListEvent) => {
@@ -58,15 +77,6 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     mediaQuery.addEventListener('change', handleChange);
     return () => mediaQuery.removeEventListener('change', handleChange);
   }, []);
-
-  const applyThemeClass = (targetTheme: Theme) => {
-    const root = document.documentElement;
-    if (targetTheme === 'dark') {
-      root.classList.add('dark');
-    } else {
-      root.classList.remove('dark');
-    }
-  };
 
   const setTheme = (newTheme: Theme) => {
     setThemeState(newTheme);

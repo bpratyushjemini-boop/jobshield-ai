@@ -58,11 +58,11 @@ export default function Navbar() {
         radius={0}
         optics={{
           frost: 3,
-          strength: 0.06,
+          strength: 0.05,
           dispersion: 0.00,
-          curvature: 0.03,
-          sheen: 0.22,
-          specular: 0.25,
+          curvature: 0.02,
+          sheen: 0.18,
+          specular: 0.22,
         }}
         className="w-full border-x-0 border-t-0 border-b border-[var(--card-border)] shadow-xs"
       >
@@ -83,7 +83,7 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop navigation links */}
-          <nav className="hidden md:flex items-center gap-1">
+          <nav className="hidden md:flex items-center gap-1" aria-label="Main Navigation">
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
               return (
@@ -92,7 +92,7 @@ export default function Navbar() {
                   href={link.href}
                   className={`px-3 py-1.5 rounded-md text-xs font-medium transition-all duration-150 ${
                     isActive
-                      ? 'text-[var(--foreground)] bg-[#112250]/10 dark:bg-[#F5F0E9]/10 font-semibold'
+                      ? 'text-[var(--foreground)] bg-[#112250]/10 dark:bg-[#F5F0E9]/10 font-semibold nav-link-active'
                       : 'text-[var(--muted-text)] hover:text-[var(--foreground)] hover:bg-[#112250]/5 dark:hover:bg-[#F5F0E9]/5'
                   }`}
                 >
@@ -104,25 +104,24 @@ export default function Navbar() {
 
           {/* Right side: Backend Status, Theme Toggle, Primary CTA */}
           <div className="flex items-center gap-2.5">
-            {/* Small Floating Control: Backend Status Pill with Liquid Glass */}
-            <LiquidGlassSurface
-              variant="pill"
-              radius={8}
-              optics={{ frost: 2, strength: 0.05, dispersion: 0.00, sheen: 0.15 }}
-              className="hidden sm:inline-flex items-center gap-2 px-2.5 py-1 text-xs border border-[var(--card-border)] shadow-xs"
+            {/* Backend Status Pill: Clean, non-nested */}
+            <div
+              className="hidden sm:inline-flex items-center gap-2 px-2.5 py-1 text-xs rounded-md bg-[var(--subtle-bg)]/80 border border-[var(--card-border)] shadow-xs"
               title={
                 backendStatus === 'online'
                   ? 'TF-IDF Classifier & Inference Engine are ready'
-                  : 'Connecting to ML engine...'
+                  : backendStatus === 'checking'
+                  ? 'Connecting to ML engine...'
+                  : 'Backend API is currently offline'
               }
             >
               <span
                 className={`w-1.5 h-1.5 rounded-full ${
                   backendStatus === 'online'
-                    ? 'bg-[#112250] dark:bg-[#E0C58F]'
+                    ? 'bg-[#3C507D] dark:bg-[#E0C58F]'
                     : backendStatus === 'checking'
-                    ? 'bg-[#92400E] dark:bg-[#E0C58F]'
-                    : 'bg-[#991B1B] dark:bg-[#F87171]'
+                    ? 'bg-[#E0C58F]'
+                    : 'bg-[#991B1B]'
                 }`}
               />
               <span className="text-[11px] font-medium text-[var(--foreground)]">
@@ -132,42 +131,27 @@ export default function Navbar() {
                   ? 'Connecting'
                   : 'Offline'}
               </span>
-            </LiquidGlassSurface>
+            </div>
 
-            {/* Theme Toggle with Liquid Glass Surface */}
-            <LiquidGlassSurface
-              variant="control"
-              radius={10}
-              interactive
-              optics={{
-                frost: 2,
-                strength: 0.09,
-                dispersion: 0.00,
-                curvature: 0.08,
-                sheen: 0.3,
-                specular: 0.3,
-              }}
-              className="shadow-xs"
+            {/* Theme Toggle Button */}
+            <button
+              type="button"
+              id="theme-toggle-btn"
+              onClick={toggleTheme}
+              aria-label={themeLabel}
+              title={themeLabel}
+              className="p-2 rounded-lg text-[var(--foreground)] bg-[var(--subtle-bg)]/70 hover:bg-[var(--subtle-bg)] border border-[var(--card-border)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--foreground)]/30 transition-all cursor-pointer min-w-[36px] min-h-[36px] flex items-center justify-center"
             >
-              <button
-                type="button"
-                id="theme-toggle-btn"
-                onClick={toggleTheme}
-                aria-label={themeLabel}
-                title={themeLabel}
-                className="p-2 rounded-lg text-[var(--foreground)] hover:text-[var(--muted-text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--foreground)]/30 transition-all cursor-pointer"
-              >
-                {isMounted ? (
-                  theme === 'dark' ? (
-                    <Moon className="w-4 h-4 text-[var(--foreground)] transition-transform rotate-0" />
-                  ) : (
-                    <Sun className="w-4 h-4 text-[var(--foreground)] transition-transform rotate-0" />
-                  )
+              {isMounted ? (
+                theme === 'dark' ? (
+                  <Moon className="w-4 h-4 text-[var(--foreground)]" />
                 ) : (
-                  <span className="w-4 h-4 inline-block" />
-                )}
-              </button>
-            </LiquidGlassSurface>
+                  <Sun className="w-4 h-4 text-[var(--foreground)]" />
+                )
+              ) : (
+                <span className="w-4 h-4 inline-block" />
+              )}
+            </button>
 
             <Link href="/analyze" className="hidden sm:inline-flex">
               <Button size="sm" className="font-semibold text-xs shadow-xs">
@@ -179,17 +163,18 @@ export default function Navbar() {
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 rounded-md text-[var(--muted-text)] hover:text-[var(--foreground)] hover:bg-[var(--subtle-bg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--foreground)]/30"
+              className="md:hidden p-2 rounded-md text-[var(--muted-text)] hover:text-[var(--foreground)] hover:bg-[var(--subtle-bg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--foreground)]/30 min-w-[44px] min-h-[44px] flex items-center justify-center cursor-pointer"
               aria-label="Toggle navigation menu"
+              aria-expanded={mobileMenuOpen}
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
         </div>
 
-        {/* Mobile navigation drawer with subtle glass surface */}
+        {/* Mobile navigation drawer */}
         {mobileMenuOpen && (
-          <div className="md:hidden border-t border-[var(--card-border)] px-4 pt-2 pb-4 space-y-2 animate-in fade-in-50 duration-150">
+          <div className="md:hidden border-t border-[var(--card-border)] px-4 pt-2 pb-4 space-y-2 bg-[var(--card-bg)]">
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
               return (
@@ -197,9 +182,9 @@ export default function Navbar() {
                   key={link.href}
                   href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className={`block px-3 py-2 rounded-md text-sm transition-colors ${
+                  className={`block px-3 py-2.5 rounded-md text-sm transition-colors min-h-[44px] flex items-center ${
                     isActive
-                      ? 'text-[var(--foreground)] font-semibold bg-[var(--card-bg)] border border-[var(--card-border)]'
+                      ? 'text-[var(--foreground)] bg-[var(--subtle-bg)] font-semibold'
                       : 'text-[var(--muted-text)] hover:text-[var(--foreground)] hover:bg-[var(--subtle-bg)]'
                   }`}
                 >
@@ -207,28 +192,13 @@ export default function Navbar() {
                 </Link>
               );
             })}
-            <div className="pt-2 border-t border-[var(--card-border)] flex flex-col gap-2">
-              <div className="flex items-center justify-between px-3 py-1.5 text-xs text-[var(--muted-text)]">
-                <div className="flex items-center gap-2">
-                  <span
-                    className={`w-1.5 h-1.5 rounded-full ${
-                      backendStatus === 'online'
-                        ? 'bg-[#112250] dark:bg-[#E0C58F]'
-                        : 'bg-[#991B1B] dark:bg-[#F87171]'
-                    }`}
-                  />
-                  <span>{backendStatus === 'online' ? 'Model online' : 'Model offline'}</span>
-                </div>
-                <span className="text-[11px] font-mono text-[var(--muted-text)]">
-                  {theme === 'dark' ? 'Dark Mode' : 'Light Mode'}
-                </span>
-              </div>
+            <div className="pt-2 border-t border-[var(--card-border)]">
               <Link
                 href="/analyze"
                 onClick={() => setMobileMenuOpen(false)}
-                className="w-full"
+                className="w-full block"
               >
-                <Button size="sm" className="w-full font-semibold text-xs">
+                <Button size="sm" className="w-full font-semibold text-xs min-h-[44px]">
                   <span>Analyze a job</span>
                 </Button>
               </Link>

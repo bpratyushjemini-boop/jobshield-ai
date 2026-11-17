@@ -3,13 +3,10 @@
 import React from 'react';
 import {
   Binary,
-  AlertOctagon,
   ShieldCheck,
   ShieldAlert,
   CheckCircle,
-  Info,
   HelpCircle,
-  FileCode2,
 } from 'lucide-react';
 import { ModelEvidence, HeuristicWarning } from '@/lib/types';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';

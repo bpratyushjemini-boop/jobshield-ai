@@ -1,21 +1,13 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
-import "@aberhamm/liquid-glass-react/styles.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { ThemeProvider } from "@/lib/theme";
 
-const inter = Inter({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-inter",
-});
-
 export const metadata: Metadata = {
-  title: "JOBSHIELD AI — Recruitment Fraud Detection System",
+  title: "JOBSHIELD AI: Recruitment Fraud Detection System",
   description:
-    "Analyze job postings for patterns associated with recruitment fraud. Review the model's assessment and the evidence behind it before deciding what to do next.",
+    "Analyze job postings for patterns associated with recruitment fraud. Review the model assessment and the evidence behind it before deciding what to do next.",
   keywords: [
     "Recruitment Fraud Detection",
     "Fake Job Detection",
@@ -31,10 +23,12 @@ const themeInitScript = `
 (function() {
   try {
     var stored = localStorage.getItem('jobshield-theme');
-    var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    if (stored === 'dark' || (!stored && prefersDark)) {
+    if (stored === 'dark') {
       document.documentElement.classList.add('dark');
+    } else if (stored === 'light') {
+      document.documentElement.classList.remove('dark');
     } else {
+      // Initial theme for first-time visitors is Light (Swan Wing)
       document.documentElement.classList.remove('dark');
     }
   } catch (e) {}
@@ -47,7 +41,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`h-full antialiased ${inter.variable}`} suppressHydrationWarning>
+    <html lang="en" className="h-full antialiased" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>

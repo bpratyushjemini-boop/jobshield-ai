@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { History, ArrowLeft, FileSearch } from 'lucide-react';
+import { ArrowLeft, FileSearch } from 'lucide-react';
 import HistoryList from '@/components/HistoryList';
 import { Button } from '@/components/ui/button';
 

@@ -154,7 +154,7 @@ export default function AnalysisResultCard({ result }: AnalysisResultCardProps) 
 
               <div>
                 <div className="flex justify-between text-xs font-medium mb-1.5">
-                  <span className="text-[var(--foreground)] flex items-center gap-1.5">
+                  <span className="text-[#3C507D] dark:text-[#E0C58F] flex items-center gap-1.5">
                     <ShieldCheck className="w-3.5 h-3.5 text-[#3C507D] dark:text-[#E0C58F]" />
                     <span>Legitimate probability</span>
                   </span>

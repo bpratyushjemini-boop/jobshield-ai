@@ -106,20 +106,20 @@ class JobShieldPredictor:
 
         if fraudulent_prob >= 0.80:
             risk_tier = "CRITICAL"
-            risk_label = "Severe Risk — High Scam Probability"
+            risk_label = "Severe Risk: High Scam Probability"
             risk_badge_color = "red"
         elif fraudulent_prob >= 0.50:
             risk_tier = "HIGH"
-            risk_label = "Elevated Risk — Potentially Deceptive"
+            risk_label = "Elevated Risk: Potentially Deceptive"
             risk_badge_color = "amber"
         elif fraudulent_prob >= 0.25:
             risk_tier = "MODERATE"
-            risk_label = "Moderate Risk — Review Indicators"
-            risk_badge_color = "yellow"
+            risk_label = "Moderate Risk: Review Indicators"
+            risk_badge_color = "quicksand"
         else:
             risk_tier = "LOW"
-            risk_label = "Low Risk — Likely Legitimate"
-            risk_badge_color = "emerald"
+            risk_label = "Low Risk: Likely Legitimate"
+            risk_badge_color = "sapphire"
 
         # 4. Model-derived feature attribution
         model_explanations = extract_model_explanations(

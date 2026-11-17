@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import {
   FileSearch,
-  Sparkles,
+  ShieldCheck,
   ArrowLeft,
   History,
   BookmarkCheck,
@@ -20,7 +20,6 @@ import VerificationChecklist from '@/components/VerificationChecklist';
 import ResponsibleUseCard from '@/components/ResponsibleUseCard';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { LiquidGlassSurface } from '@/components/ui/liquid-glass';
 
 const initialFormData: JobPostingFormData = {
   title: '',
@@ -83,8 +82,9 @@ export default function AnalyzePage() {
           el.scrollIntoView({ behavior: 'smooth' });
         }
       }, 100);
-    } catch (err: any) {
-      setError(err?.message || 'An unexpected error occurred while analyzing the job posting.');
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : 'An unexpected error occurred while analyzing the job posting.';
+      setError(message);
     } finally {
       setLoading(false);
     }
@@ -155,22 +155,17 @@ export default function AnalyzePage() {
         <div id="analysis-results-section" className="space-y-6 pt-4">
           <div className="flex items-center justify-between pb-2 border-b border-[var(--card-border)]">
             <div className="flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-[var(--foreground)]" />
+              <ShieldCheck className="w-4 h-4 text-[var(--foreground)]" />
               <h2 className="text-lg font-semibold text-[var(--foreground)] tracking-tight">
                 Model Assessment &amp; Risk Evidence
               </h2>
             </div>
 
             {savedNotification && (
-              <LiquidGlassSurface
-                variant="pill"
-                radius={999}
-                optics={{ frost: 2, strength: 0.06, dispersion: 0.00, sheen: 0.2 }}
-                className="inline-flex items-center gap-1.5 px-3 py-1 bg-[var(--card-elevated)] text-[var(--foreground)] border border-[var(--card-border)] text-xs font-semibold shadow-xs"
-              >
-                <BookmarkCheck className="w-3.5 h-3.5" />
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--subtle-bg)] text-[var(--foreground)] border border-[var(--card-border)] text-xs font-medium shadow-xs">
+                <BookmarkCheck className="w-3.5 h-3.5 text-[#3C507D] dark:text-[#E0C58F]" />
                 <span>Saved to local audit history</span>
-              </LiquidGlassSurface>
+              </div>
             )}
           </div>
 

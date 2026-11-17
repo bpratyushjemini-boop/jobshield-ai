@@ -16,7 +16,7 @@ export async function checkHealth(): Promise<{ status: string; model_loaded: boo
     });
     if (!res.ok) throw new Error(`Health check returned status ${res.status}`);
     return await res.json();
-  } catch (error) {
+  } catch {
     return { status: 'offline', model_loaded: false };
   }
 }
@@ -34,6 +34,11 @@ export async function getModelInfo(): Promise<ModelInfo> {
   return await res.json();
 }
 
+interface ValidationErrorDetail {
+  loc?: (string | number)[];
+  msg?: string;
+}
+
 export async function analyzeJob(data: JobPostingFormData): Promise<JobAnalysisResponse> {
   const res = await fetch(`${API_BASE_URL}/predict`, {
     method: 'POST',
@@ -49,7 +54,9 @@ export async function analyzeJob(data: JobPostingFormData): Promise<JobAnalysisR
         if (typeof errJson.detail === 'string') {
           detailMsg = errJson.detail;
         } else if (Array.isArray(errJson.detail)) {
-          detailMsg = errJson.detail.map((d: any) => `${d.loc?.join('.')}: ${d.msg}`).join(', ');
+          detailMsg = (errJson.detail as ValidationErrorDetail[])
+            .map((d) => `${d.loc?.join('.') || 'field'}: ${d.msg || 'invalid'}`)
+            .join(', ');
         }
       }
     } catch {

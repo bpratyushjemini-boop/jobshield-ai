@@ -4,19 +4,19 @@
 
 export interface JobPostingFormData {
   title: string;
-  company_name: string;
-  company_website: string;
-  location: string;
-  employment_type: string;
-  required_experience: string;
-  required_education: string;
-  salary_range: string;
-  industry: string;
-  function: string;
-  required_skills: string;
-  company_profile: string;
   description: string;
-  benefits: string;
+  company_name?: string;
+  company_website?: string;
+  location?: string;
+  employment_type?: string;
+  required_experience?: string;
+  required_education?: string;
+  salary_range?: string;
+  industry?: string;
+  function?: string;
+  required_skills?: string;
+  company_profile?: string;
+  benefits?: string;
 }
 
 export interface TokenContribution {
@@ -120,11 +120,11 @@ export interface ModelInfo {
       false_negatives: number;
       true_positives: number;
     };
-    classification_report: Record<string, any>;
+    classification_report: Record<string, unknown>;
   };
   hyperparameters: {
-    vectorizer: Record<string, any>;
-    classifier: Record<string, any>;
+    vectorizer: Record<string, unknown>;
+    classifier: Record<string, unknown>;
   };
   top_fraud_terms: Array<{ term: string; weight: number }>;
   top_legit_terms: Array<{ term: string; weight: number }>;

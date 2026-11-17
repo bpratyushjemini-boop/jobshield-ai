@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   FileSearch,
   RotateCcw,
@@ -8,11 +8,7 @@ import {
   Building2,
   MapPin,
   DollarSign,
-  Briefcase,
-  GraduationCap,
   Globe,
-  Code2,
-  AlignLeft,
   ChevronDown,
   ChevronUp,
 } from 'lucide-react';
@@ -246,7 +242,7 @@ export default function AnalysisForm({
                   id="salary-range-input"
                   value={formData.salary_range}
                   onChange={(e) => onChange('salary_range', e.target.value)}
-                  placeholder="e.g. $80,000–$110,000 / yr, $45/hr"
+                  placeholder="e.g. $80,000 to $110,000 / yr, $45/hr"
                   className="text-xs h-9"
                 />
               </div>
